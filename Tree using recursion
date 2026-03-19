@@ -1,0 +1,64 @@
+class Node {
+	int data;
+	Node left, right;
+	Node(int data) {
+		this.data = data;
+	}
+}
+class T_Methods {
+	Node root;
+	void insert(int data) { //50  O(n)
+		root = insertdata(root, data);//1000,50
+	}
+	Node insertdata(Node root, int data) {//1000,50         O(n)
+		if(root == null) {
+			return new Node(data);
+		}
+		if(root.left == null) {
+			root.left = insertdata(root.left, data);
+		}
+		else {
+			root.right = insertdata(root.right, data);
+		}
+		return root;
+	}
+	void inorder(Node root) { // left root right      O(n)
+		if(root!= null) {
+			inorder(root.left);
+			System.out.println(root.data);
+			inorder(root.right);
+		}
+	}
+	void preorder(Node root) { // root left right      O(n)
+		if(root!= null) {
+			System.out.println(root.data);
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	void postorder(Node root) { // left right root       O(n)
+		if(root!= null) {
+			postorder(root.left);
+			postorder(root.right);
+			System.out.println(root.data);
+		}
+	}
+}
+public class Main
+{
+	public static void main(String[] args) {
+		T_Methods t = new T_Methods();
+		t.insert(10);
+		t.insert(20);
+		t.insert(30);
+		t.insert(40);
+		t.insert(50);
+		t.insert(60);
+		t.insert(70);
+		t.insert(80);
+		t.insert(90);
+//	    t.inorder(t.root);
+//		t.preorder(t.root);
+//		t.postorder(t.root);
+	}
+}
