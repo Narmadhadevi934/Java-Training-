@@ -1,0 +1,74 @@
+
+public class Min_Heap
+{
+    //Parent --> (i-1)/2
+    //Left --> 2i+1
+    //Right --> 2i+2
+    //Heap is effectively used to fetch the Min/Max element with min time.
+    int arr[];
+    int size;
+    int n;
+    Min_Heap(int size){
+        arr = new int[size];
+        this.size = size;
+        n=0;
+        
+    }
+    int parent(int i){
+        return (i-1)/2;
+    }
+    void insert(int value){
+        arr[n] = value;
+        int i = n;
+        n++;
+        while(i>=1 && arr[parent(i)] > arr[i]){
+            int temp = arr[i];
+            arr[i] = arr[parent(i)];
+            arr[parent(i)] = temp;
+            i=parent(i);
+        }
+    }
+    int getmin(){
+        return arr[0];
+    }
+    int delete(){
+        int root = arr[0];
+        arr[0] = arr[n-1];
+        n--;
+        minheapify(0);
+        return root;
+    }
+    int left(int i){
+        return 2*i+1;
+    }
+    int right(int i){
+        return 2*i+2;
+    }
+    void minheapify(int i){
+        int left = left(i);
+        int right = right(i);
+        int smallest = i;
+        if(left < n && arr[left] < arr[smallest]){
+            smallest = left;
+        }
+        if(right < n && arr[right] < arr[smallest]){
+            smallest = right;
+        }
+        if(smallest != i){
+            int temp = arr[i];
+            arr[i] = arr[smallest];
+            arr[smallest] = temp;
+            minheapify(smallest);
+        }
+    }
+	public static void main(String[] args) {
+		Min_Heap mp = new Min_Heap(10);
+		mp.insert(20);
+		mp.insert(15);
+		mp.insert(25);
+		mp.insert(10);
+		System.out.println(mp.getmin());
+		System.out.println(mp.delete());
+		System.out.println(mp.getmin());
+	}
+}
