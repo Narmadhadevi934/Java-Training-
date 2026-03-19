@@ -1,0 +1,47 @@
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data = data;
+        next = null;
+    }
+}
+class SL_Methods{
+    Node top;
+    void push(int data){//o(1)
+        Node newnode = new Node(data);
+        if(top == null){
+            top = newnode;
+        }else{
+            newnode.next = top;
+            top = newnode;
+        }
+    }
+    void pop(){//o(1)
+        top = top.next;
+    }
+    int peek(){//o(1)
+        return top.data;
+    }
+    void display(){//o(n)
+        Node temp = top;
+        while(temp!=null){ 
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		SL_Methods sl = new SL_Methods();
+		sl.push(10);
+		sl.push(20);
+		sl.push(30);
+		sl.push(40);
+		sl.push(50);
+		sl.pop();
+		System.out.println("peek: " +sl.peek());
+		sl.display();
+	}
+}
