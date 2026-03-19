@@ -1,0 +1,51 @@
+class Node {
+	int data;
+	Node next;
+	Node(int data) {
+		this.data = data;
+		next = null;
+	}
+}
+class QL_Methods {
+	Node front, rear;
+	void enqueue(int data) { //o(1)
+		Node newnode = new Node(data);
+		if(front == null) {
+			front = rear = newnode;
+		}
+		else {
+		    rear.next = newnode;
+			rear = newnode;
+			
+		}
+	}
+	void dequeue(){  //o(1)
+	    front = front.next;
+	}
+	int peek(){
+	    return front.data;
+	}
+	void display() {//o(n)
+		Node temp = front;
+		while(temp!=null) {
+			System.out.println(temp.data);
+			temp = temp.next;
+		}
+	}
+}
+public class Main
+{
+	public static void main(String[] args) {
+		QL_Methods ql = new QL_Methods();
+		ql.enqueue(10);
+		ql.enqueue(20);
+		ql.enqueue(30);
+		ql.enqueue(40);
+		ql.enqueue(50);
+		System.out.println("Peek: "+ql.peek());
+		ql.dequeue();
+		System.out.println("Peek: "+ql.peek());
+		ql.display();
+
+	}
+}
