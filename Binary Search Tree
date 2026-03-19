@@ -1,0 +1,124 @@
+class Node {
+	int data;
+	Node left, right;
+	Node(int data) {
+		this.data = data;
+	}
+}
+class BST_Methods {
+	Node root;
+	void insert(int data) {
+		root = insertdata(root, data);
+	}
+	Node insertdata(Node root, int data) {
+		if(root == null) {
+			return new Node(data);
+		}
+		if(data >= root.data) {
+			root.right = insertdata(root.right, data);
+		}
+		else if (data <= root.data) {
+			root.left = insertdata(root.left, data);
+		}
+		return root;
+	}
+	void inorder(Node root) { // left root right      O(n)
+		if(root!= null) {
+			inorder(root.left);
+			System.out.println(root.data);
+			inorder(root.right);
+		}
+	}
+	void preorder(Node root) { // root left right      O(n)
+		if(root!= null) {
+			System.out.println(root.data);
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	void postorder(Node root) { // left right root       O(n)
+		if(root!= null) {
+			postorder(root.left);
+			postorder(root.right);
+			System.out.println(root.data);
+		}
+	}
+	boolean search(Node root,int data) {
+		if(root == null) {
+			return false;
+		}
+		if(root.data == data) {
+			return true;
+		}
+		else if(data<root.data) {
+			return search(root.left, data);
+		}
+		else
+			return search(root.right, data);
+	}
+	Node delete(Node root, int data) {
+		if(root == null)
+			return null;
+		if(data<root.data) {
+			root.left = delete(root.left, data);
+		}
+		else if(data> root.data) {
+			root.right = delete(root.right, data);
+		}
+		else {
+			if(root.left == null && root.right == null) { // NO Child
+				return null;
+			}
+			// One child
+			else if(root.left == null) {
+				return root.right;
+			}
+			else if(root.right == null) {
+				return root.left;
+			}
+            // Two Child
+			Node successor = findMin(root.right);
+			// Reason behind traversing through right?
+			// why right means because to place a maximum value
+			root.data = successor.data;
+			root.right = delete(root.right, successor.data);
+		}
+		return root;
+	}
+	Node findMin(Node root) {
+		while(root.left != null)
+			root = root.left;
+		return root;
+	}
+	boolean isBST(Node root, int min, int max){
+	    if(root == null){
+	        return true;
+	    }
+	    if(root.data<=min || root.data>=max){
+	        return false;
+	    }
+	    return isBST(root.left,min,root.data) && isBST(root.right,root.data,max);
+	}
+}
+public class Main
+{
+	public static void main(String[] args) {
+		BST_Methods bst = new BST_Methods();
+		bst.insert(50);
+		bst.insert(30);
+		bst.insert(70);
+		bst.insert(100);
+		bst.insert(10);
+		System.out.println("Inorder:");
+		bst.inorder(bst.root);
+		System.out.println("Preorder:");
+		bst.preorder(bst.root);
+		System.out.println("Postorder:");
+		bst.postorder(bst.root);
+		System.out.println("Search:");
+		System.out.println(bst.search(bst.root,50));
+		System.out.println("Delete:");
+		System.out.println(bst.delete(bst.root,50));
+	    System.out.println(bst.isBST(bst.root, Integer.MIN_VALUE, Integer.MAX_VALUE));
+	}
+}
