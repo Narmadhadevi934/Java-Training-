@@ -1,0 +1,85 @@
+class Node {
+	int data;
+	Node left, right;
+	Node(int data) {
+		this.data = data;
+	}
+}
+class BST_Methods {
+	Node root;
+	void insert(int data) {
+		root = insertdata(root, data);
+	}
+	Node insertdata(Node root, int data) {
+		if(root == null) {
+			return new Node(data);
+		}
+		if(data >= root.data) {
+			root.right = insertdata(root.right, data);
+		}
+		else if (data <= root.data) {
+			root.left = insertdata(root.left, data);
+		}
+		return root;
+	}
+	void inorder(Node root) { // left root right      O(n)
+		if(root!= null) {
+			inorder(root.left);
+			System.out.println(root.data);
+			inorder(root.right);
+		}
+	}
+	void preorder(Node root) { // root left right      O(n)
+		if(root!= null) {
+			System.out.println(root.data);
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	void postorder(Node root) { // left right root       O(n)
+		if(root!= null) {
+			postorder(root.left);
+			postorder(root.right);
+			System.out.println(root.data);
+		}
+	}
+	int height(Node root) {
+		if(root == null)
+			return 0;
+		int left = height(root.left);
+		int right = height(root.right);
+		return Math.max(left, right)+1;
+	}
+	int diameter(Node root) {
+		if(root == null)
+			return 0;
+		int left = height(root.left);
+		int right = height(root.right);
+		int ans = left+right+1;
+		int left_dia = diameter(root.left);
+		int right_dia = diameter(root.right);
+		return Math.max(ans, Math.max(left_dia, right_dia));
+	}
+}
+public class Main
+{
+	public static void main(String[] args) {
+		BST_Methods bst = new BST_Methods();
+		bst.insert(50);
+		bst.insert(30);
+		bst.insert(70);
+		bst.insert(100);
+		bst.insert(20);
+		bst.insert(10);
+		System.out.println("Inorder:");
+		bst.inorder(bst.root);
+		System.out.println("Preorder:");
+		bst.preorder(bst.root);
+		System.out.println("Postorder:");
+		bst.postorder(bst.root);
+		System.out.println("Height");
+		System.out.println(bst.height(bst.root));
+		System.out.println("Diameter");
+		System.out.println(bst.diameter(bst.root));
+	}
+}
