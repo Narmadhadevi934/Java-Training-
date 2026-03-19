@@ -1,0 +1,90 @@
+class Node {
+	int data;
+	Node next;
+	Node(int data) {
+		this.data=data;
+		next=null;
+	}
+}
+class CLL_Methods {
+	Node head;
+	void insert(int data) {
+		Node newnode = new Node(data);
+		if(head == null) {
+			head = newnode;
+			head.next = head;
+		}
+		else {
+			Node temp = head;
+			while(temp.next!=head) {
+				temp = temp.next;
+			}
+			temp.next = newnode;
+			newnode.next = head;
+		}
+	}
+	void insertAtBegin(int data) {
+		Node newnode = new Node(data);
+		newnode.next = head;
+		Node temp = head;
+		while(temp.next!=head){
+		    temp = temp.next;
+		}
+		temp.next = newnode;
+		head = newnode;
+	}
+	void deleteAtEnd(){
+	    Node temp = head;
+	    while(temp.next.next!=head){
+	        temp = temp.next;
+	    }
+	    temp.next = head; 
+	}
+	void deleteAtBegin(){
+	    Node temp= head;
+	    while(temp.next!=head){
+	        temp = temp.next;
+	    }
+	    temp.next = head.next;
+	    head = head.next;
+	}
+	void insertAtPos(int pos, int data){
+	    if(pos == 1){
+	        insertAtBegin(data);
+	        return;
+	    }
+	    Node newnode = new Node(data);
+	    Node temp = head;
+	    for(int i=1; i<pos-1 && temp!=head; i++){
+	        temp = temp.next;
+	    }
+	    if(temp != head){
+	        System.out.println("Invalid Position");
+	        return;
+	    }
+	    newnode.next = temp.next;
+	    temp.next = newnode;
+	}
+	void display() {
+		Node temp = head;
+		while(temp.next!=head) {
+			System.out.println(temp.data);
+			temp = temp.next;
+		}
+		System.out.println(temp.data);
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		CLL_Methods ll = new CLL_Methods();
+		ll.insert(10);
+		ll.insert(20);
+		ll.insert(30);
+		ll.insert(40);
+		ll.insertAtBegin(5);
+		ll.deleteAtBegin();
+		ll.deleteAtEnd();
+		ll.insertAtPos(3,25);
+		ll.display();
+	}
+}
