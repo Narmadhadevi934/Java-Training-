@@ -1,0 +1,92 @@
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data = data;
+        next=null;
+    }
+}
+class LL_Methods{
+    Node head;
+    void insert(int data){
+        Node newnode = new Node(data);//1000
+        if(head == null)
+            head=newnode;
+        else{
+            Node temp = head;
+            while(temp.next!=null){ //To find the last node in the list
+                temp = temp.next;
+            }
+            temp.next = newnode;
+        }
+    }
+    void insertAtBegin(int data){
+        Node newnode = new Node(data);
+        newnode.next=head;
+        head = newnode;
+    }
+    void deleteAtEnd(){
+        Node temp = head;
+        while(temp.next.next!=null){
+            temp = temp.next;
+        }
+            temp.next=null;
+    }
+    void deleteAtBegin(){
+        head = head.next;
+       // Node temp = head;
+      // head = temp.next;
+        
+    }
+    void insertAtEnd(int data){
+        Node newnode = new Node(data);
+        Node temp = head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=newnode;
+    }
+    void insertAtPos(int pos, int data){
+        Node newnode = new Node(data);
+        Node temp = head;
+        for(int i=1; i<pos-1;i++){
+            temp = temp.next;
+        }
+        newnode.next = temp.next;
+        temp.next = newnode;
+    }
+    void deleteAtPos(int pos){
+        Node temp = head;
+        for(int i=1; i<pos-1 && temp!=null; i++){
+            temp = temp.next;
+        }
+        if(temp==null || temp.next == null){
+            System.out.println("Invalid position");
+            return;
+        }
+        temp.next = temp.next.next;
+    }
+    void display(){
+        Node temp = head;
+        while(temp!=null){ // while(temp.next!=null) o/p  10 20 30 
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+}
+public class Main{
+	public static void main(String[] args) {
+		LL_Methods lm = new LL_Methods();
+		lm.insert(10);
+		lm.insert(20);
+		lm.insert(30);
+		lm.insert(40); 
+		lm.insertAtBegin(5);
+		lm.deleteAtEnd();
+		lm.deleteAtBegin();
+		lm.insertAtEnd(7);
+		lm.insertAtPos(3,25);
+		lm.deleteAtPos(8);
+		lm.display();
+	}
+}
